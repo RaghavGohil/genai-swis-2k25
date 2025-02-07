@@ -1,10 +1,16 @@
 import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { LanguageContext } from "./LanguageContext";
+import {useNavigate} from 'react-router-dom'
 
 const GetStarted = () => {
 
     const {translations, language} = useContext(LanguageContext)
+    const navigate = useNavigate()
+
+    const onStart = ()=>{
+        navigate('/user-information')
+    }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -16,9 +22,9 @@ const GetStarted = () => {
       >
         <h1 className="text-3xl font-bold mb-4">{translations[language].welcome}</h1>
         <p className="text-gray-600 mb-6">{translations[language].tagline}</p>
-        <a href="/form" className="px-6 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
+        <button onClick={onStart} className="px-6 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
             {translations[language].getStarted} 
-        </a>
+        </button>
       </motion.div>
     </div>
   );

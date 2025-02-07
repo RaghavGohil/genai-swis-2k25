@@ -18,9 +18,6 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <img src='./logo.png' className="w-24"/>
         <ul className="flex space-x-6">
-          <li><a href="#" className="hover:underline">{t.home}</a></li>
-          <li><a href="#" className="hover:underline">{t.about}</a></li>
-          <li><a href="#" className="hover:underline">{t.contact}</a></li>
           <li>
             <select 
               className="text-black p-1 rounded"
