@@ -1,84 +1,100 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { motion } from "framer-motion";
-import {LanguageContext} from './LanguageContext';
-
+import { LanguageContext } from "./LanguageContext";
+import Lottie from "lottie-react";
+import animationData from "./animation_world.json";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
 
 const Step = ({ question, options, onNext, onBack, onChange, value }) => {
+  const { language } = useContext(LanguageContext);
 
-  const {language} = useContext(LanguageContext)
+  const particlesInit = useCallback(async (engine) => {
+    await loadSlim(engine);
+  }, []);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className="bg-gray-100 flex flex-col items-center justify-center h-screen p-8"
-    >
-      <div className="bg-white p-8 shadow-md rounded-2xl w-96 text-center ">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">{question}</h2>
+    <div className="relative h-screen flex items-center justify-center bg-gray-700 overflow-hidden">
+      {/* Lottie Background Animation */}
+      <Lottie 
+        animationData={animationData} 
+        loop={true} 
+        className="absolute inset-0 w-full h-full object-cover opacity-50"
+      />
+
+      {/* Particles Background */}
+      <div className="absolute top-0 left-0 w-full h-screen pointer-events-none">
+        <Particles
+          init={particlesInit}
+          options={{
+            fullScreen: { enable: false },
+            particles: {
+              number: { value: 50, density: { enable: true, area: 800 } },
+              shape: { type: "circle" },
+              opacity: { value: 0.3 },
+              size: { value: { min: 1, max: 3 } },
+              move: { enable: true, speed: 0.3 },
+              color: { value: "#aaaaff" },
+            },
+            interactivity: {
+              events: { onHover: { enable: true, mode: "repulse" } },
+            },
+            background: { color: "transparent" },
+          }}
+          className="h-full"
+        />
+      </div>
+
+      {/* Content Box */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative bg-gray-800 p-10 rounded-lg shadow-lg text-center border border-gray-700 z-10"
+      >
+        <h2 className="text-xl font-bold text-white mb-4">{question}</h2>
         {options ? (
           <select
-            className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border p-3 rounded-lg w-full bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={value}
             onChange={(e) => onChange(e.target.value)}
           >
-            <option value="">Select an option</option>
+            <option value="" className="bg-gray-800 text-white">Select an option</option>
             {options.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+              <option key={index} value={option} className="bg-gray-800 text-white">
+                {option}
+              </option>
             ))}
           </select>
         ) : (
           <input
             type="text"
-            className="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border p-3 rounded-lg w-full bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             value={value}
             onChange={(e) => onChange(e.target.value)}
           />
         )}
+
         <div className="flex justify-between mt-6">
           {onBack && (
-            <button className="bg-gray-300 px-5 py-2 rounded-lg hover:bg-gray-400 transition" onClick={onBack}>
-              back
+            <button
+              className="px-6 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transition"
+              onClick={onBack}
+            >
+              Back
             </button>
           )}
           <button
-            className="bg-indigo-500 text-white px-5 py-2 rounded-lg hover:bg-indigo-600 transition disabled:opacity-50"
+            className="px-6 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transition disabled:opacity-50"
             onClick={onNext}
             disabled={!value}
           >
-            next
+            Next
           </button>
         </div>
-      </div>
-    </motion.div>
-  );
-};
-
-const UserInformation = () => {
-
-  const {language} = useContext(LanguageContext)
-  const [formData, setFormData] = useState({});
-  const updateData = (key, value) => setFormData({ ...formData, [key]: value });
-  
-  const [currentStep, setCurrentStep] = useState(0);
-  
-  const nextStep = () => setCurrentStep(currentStep + 1);
-  const prevStep = () => setCurrentStep(currentStep - 1);
-
-  const steps = [] 
-  
-  return (
-    <div>
-      <Step
-        value={formData[steps[currentStep]] || ""}
-        onChange={(value) => updateData(steps[currentStep], value)}
-        onNext={currentStep < steps.length - 1 ? nextStep : () => alert('monke')}
-        onBack={currentStep > 0 ? prevStep : null}
-      />
+      </motion.div>
     </div>
   );
 };
 
-
-export default UserInformation;
-
+export default Step;
