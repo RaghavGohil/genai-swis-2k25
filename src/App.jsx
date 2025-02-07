@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import GetStarted from "./GetStarted";
 import { LanguageProvider } from "./LanguageContext";
 import UserInformation from "./UserInformation";
@@ -6,6 +7,7 @@ import Navbar from './components/Navbar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 export default function App() {
+
   return (
       <>
         <LanguageProvider>

@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*Hide google's iframe (this hides all though)*/
+iframe{
+    display: none;
+}

@@ -5,9 +5,7 @@ import {LanguageContext} from './LanguageContext';
 
 const Step = ({ question, options, onNext, onBack, onChange, value }) => {
 
-  const {translations, language} = useContext(LanguageContext)
-  const nextLabel = translations[language].next
-  const backLabel = translations[language].back
+  const {language} = useContext(LanguageContext)
 
   return (
     <motion.div 
@@ -40,7 +38,7 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
         <div className="flex justify-between mt-6">
           {onBack && (
             <button className="bg-gray-300 px-5 py-2 rounded-lg hover:bg-gray-400 transition" onClick={onBack}>
-              {backLabel}
+              back
             </button>
           )}
           <button
@@ -48,7 +46,7 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
             onClick={onNext}
             disabled={!value}
           >
-            {nextLabel} 
+            next
           </button>
         </div>
       </div>
@@ -58,23 +56,23 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
 
 const UserInformation = () => {
 
-  const {translations, language} = useContext(LanguageContext)
+  const {language} = useContext(LanguageContext)
   const [formData, setFormData] = useState({});
   const updateData = (key, value) => setFormData({ ...formData, [key]: value });
   
-  const steps = Object.keys(translations[language].questions);
   const [currentStep, setCurrentStep] = useState(0);
   
   const nextStep = () => setCurrentStep(currentStep + 1);
   const prevStep = () => setCurrentStep(currentStep - 1);
+
+  const steps = [] 
   
   return (
     <div>
       <Step
-        question={translations[language].questions[steps[currentStep]]}
         value={formData[steps[currentStep]] || ""}
         onChange={(value) => updateData(steps[currentStep], value)}
-        onNext={currentStep < steps.length - 1 ? nextStep : () => alert(translations[language].submit + "\n" + JSON.stringify(formData, null, 2))}
+        onNext={currentStep < steps.length - 1 ? nextStep : () => alert('monke')}
         onBack={currentStep > 0 ? prevStep : null}
       />
     </div>
