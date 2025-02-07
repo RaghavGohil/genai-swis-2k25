@@ -14,9 +14,9 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-slate-200 flex flex-col items-center justify-center h-screen p-8"
+      className="bg-gray-100 flex flex-col items-center justify-center h-screen p-8"
     >
-      <div className="bg-white p-8 rounded-2xl w-96 text-center ">
+      <div className="bg-white p-8 shadow-md rounded-2xl w-96 text-center ">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">{question}</h2>
         {options ? (
           <select
