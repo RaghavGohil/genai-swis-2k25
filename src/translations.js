@@ -1,6 +1,8 @@
 const translations = {
     en: {
-      title: "MultiStep Form",
+      welcome: "Welcome to the Margadarshak",
+      tagline: "We provide career guidance to the needy:)",
+      getStarted: "Get Started",
       home: "Home",
       about: "About",
       contact: "Contact",
@@ -31,7 +33,9 @@ const translations = {
       }
     },
     hi: {
-      title: "मल्टीस्टेप फॉर्म",
+      welcome: "मार्गदर्शक में आपका स्वागत है",
+      tagline: "हम जरूरतमंदों को करियर मार्गदर्शन प्रदान करते हैं :)",
+      getStarted: "शुरू करें",
       home: "होम",
       about: "के बारे में",
       contact: "संपर्क करें",

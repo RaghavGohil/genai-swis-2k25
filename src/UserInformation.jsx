@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
+import {LanguageContext} from './LanguageContext';
+
 
 const Step = ({ question, options, onNext, onBack, onChange, value }) => {
+
+  const {translations, language} = useContext(LanguageContext)
+  const nextLabel = translations[language].next
+  const backLabel = translations[language].back
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="flex flex-col items-center justify-center h-screen p-8"
+      className="bg-slate-100 flex flex-col items-center justify-center h-screen p-8"
     >
       <div className="bg-white p-8 rounded-2xl w-96 text-center border border-black">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">{question}</h2>
@@ -33,7 +40,7 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
         <div className="flex justify-between mt-6">
           {onBack && (
             <button className="bg-gray-300 px-5 py-2 rounded-lg hover:bg-gray-400 transition" onClick={onBack}>
-              Back
+              {backLabel}
             </button>
           )}
           <button
@@ -41,7 +48,7 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
             onClick={onNext}
             disabled={!value}
           >
-            Next
+            {nextLabel} 
           </button>
         </div>
       </div>
@@ -50,7 +57,8 @@ const Step = ({ question, options, onNext, onBack, onChange, value }) => {
 };
 
 const MultiStepForm = () => {
-  const [language, setLanguage] = useState("en");
+
+  const {translations, language} = useContext(LanguageContext)
   const [formData, setFormData] = useState({});
   const updateData = (key, value) => setFormData({ ...formData, [key]: value });
   
@@ -62,9 +70,6 @@ const MultiStepForm = () => {
   
   return (
     <div>
-      <Navbar language={language} setLanguage={setLanguage} />
-      <div className="p-4 flex justify-center">
-      </div>
       <Step
         question={translations[language].questions[steps[currentStep]]}
         value={formData[steps[currentStep]] || ""}

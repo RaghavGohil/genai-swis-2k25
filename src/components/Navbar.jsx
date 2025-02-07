@@ -1,8 +1,13 @@
 import {motion} from 'framer-motion'
-import {translations} from '../translations.js'
+import { useState, useContext } from 'react';
+import {LanguageContext} from '../LanguageContext';
 
-const Navbar = ({ language, setLanguage }) => {
+const Navbar = () => {
+
+  const {translations, language, setLanguage} = useContext(LanguageContext);
+  
   const t = translations[language];
+
   return (
     <motion.nav 
       initial={{ y: -50, opacity: 0 }}
@@ -11,7 +16,7 @@ const Navbar = ({ language, setLanguage }) => {
       className="bg-indigo-600 text-white p-4 fixed top-0 w-full shadow-md z-50"
     >
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-xl font-bold">{t.title}</h1>
+        <img src='./logo.png' className="w-24"/>
         <ul className="flex space-x-6">
           <li><a href="#" className="hover:underline">{t.home}</a></li>
           <li><a href="#" className="hover:underline">{t.about}</a></li>

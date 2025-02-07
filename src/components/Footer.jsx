@@ -7,7 +7,7 @@ const Footer = () => {
       transition={{ duration: 0.5 }}
       className="bg-indigo-600 text-white p-4 text-center"
     >
-      <p>&copy; {new Date().getFullYear()} MultiStep Form. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} Margadarshak. All rights reserved.</p>
     </motion.footer>
   );
 };
