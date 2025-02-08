@@ -20,7 +20,7 @@ const GetStarted = () => {
   }, []);
 
   return (
-    <div className="relative h-screen flex items-center justify-center bg-gray-700 overflow-hidden">
+    <div className="relative h-screen flex items-center justify-center bg-slate-700 overflow-hidden">
       {/* Lottie Background Animation */}
       <Lottie 
         animationData={animationData} 

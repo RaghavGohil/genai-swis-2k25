@@ -5,4 +5,14 @@
 /*Hide google's iframe (this hides all though)*/
 iframe{
     display: none;
+    width: 0px;
+    height: 0px;
+}
+
+body {
+  top:0 !important;
+}
+
+.markdown > * {
+  all: revert;
 }
